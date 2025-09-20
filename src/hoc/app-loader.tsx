@@ -12,7 +12,7 @@ interface IProps {
 
 const AppLoader = ({ children }: IProps) => {
     const { data: session, status } = useSession();
-    const { ingredients, loadIngredients } = useIngredientStore();
+    const { loadIngredients } = useIngredientStore();
     const { isAuth, setAuthState } = useAuthStore();
     const { loadRecipes } = useRecipeStore();
     

@@ -46,6 +46,7 @@ export const useIngredientStore = create<IngredientStore>((set) => ({
                 set({ error: result.error, isLoading: false });
             }
         } catch (error) {
+            console.error("error", error);
             set({ error: "Ошибка при добавлении ингредиента", isLoading: false});
         }
     },

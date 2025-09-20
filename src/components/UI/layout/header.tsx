@@ -16,7 +16,6 @@ import RegistrationModal from "../modals/registration.modal";
 import LoginModal from "../modals/login.modal ";
 import { useState } from "react";
 import { signOutFunc } from "@/actions/sign-out";
-import moduleName from 'module';
 import { useAuthStore } from "@/store/auth.store";
 
 export const Logo = () => {

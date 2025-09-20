@@ -1,8 +1,6 @@
 "use server";
 
 import { signIn } from "@/auth/auth";
-import { log } from "console";
-import { redirect } from "next/dist/server/api-utils";
 
 export async function singWithCredentials( email: string, password: string ) {
     try {
