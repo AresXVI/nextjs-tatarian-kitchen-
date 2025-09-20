@@ -14,7 +14,6 @@
     "@heroui/react": "^2.8.0-beta.15",
     "@prisma/client": "^6.16.1",
     "@prisma/extension-accelerate": "^2.0.2",
-    "@types/dompurify": "^3.0.5",
     "bcryptjs": "^3.0.2",
     "dompurify": "^3.2.7",
     "html-react-parser": "^5.2.6",
