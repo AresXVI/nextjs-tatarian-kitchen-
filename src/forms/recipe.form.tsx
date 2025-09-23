@@ -109,7 +109,6 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
             />
 
             <Input 
-                isRequired
                 name="description"
                 placeholder="Введите описание (необязательно)"
                 type="text"
@@ -121,11 +120,9 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
                 onChange={(e) => 
                     setFormData({ ...formData, description: e.target.value })
                 }
-                validate={(value) => (! value ? "Название обязательно" : null)}
             />
 
             <Input 
-                isRequired
                 name="imageUrl"
                 placeholder="Введите изображение (необязательно)"
                 type="url"
