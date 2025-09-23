@@ -6,9 +6,6 @@ import prisma from "@/utils/prisma";
 
 export async function registerUser( formData: IFormData) {
 
-    console.log("formData:", formData);
-// ччччччччччччччччччччччччччч
-
     const { email, password, confirmPassword} = formData;
 
     if (password !== confirmPassword) {
@@ -29,9 +26,6 @@ export async function registerUser( formData: IFormData) {
         }
 
         const pwHash = await saltAndHashPassword(password);
-
-        console.log("creating user with:", email, pwHash);
-        // чччччччччччччччччччччччччччччч
 
         const user = await prisma.user.create({
             data: {
