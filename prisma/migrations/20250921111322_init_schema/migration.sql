@@ -1,3 +1,9 @@
+-- CreateEnum
+CREATE TYPE "public"."Category" AS ENUM ('VEGETABLES', 'FRUITS', 'MEAT', 'DAIRY', 'SPICES', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "public"."Unit" AS ENUM ('GRAMS', 'KILOGRAMS', 'LITERS', 'MILLILITERS', 'PIECES');
+
 -- CreateTable
 CREATE TABLE "public"."users" (
     "id" TEXT NOT NULL,
@@ -44,6 +50,40 @@ CREATE TABLE "public"."verification_tokens" (
     "expires" TIMESTAMP(3) NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "public"."ingredients" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "category" "public"."Category" NOT NULL,
+    "unit" "public"."Unit" NOT NULL,
+    "pricePerUnit" DOUBLE PRECISION,
+    "description" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "ingredients_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "public"."recipes" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "image_url" TEXT,
+
+    CONSTRAINT "recipes_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "public"."recipe_ingredient" (
+    "id" TEXT NOT NULL,
+    "recipeId" TEXT NOT NULL,
+    "ingredientId" TEXT NOT NULL,
+    "quantity" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "recipe_ingredient_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "public"."users"("email");
 
@@ -61,3 +101,9 @@ ALTER TABLE "public"."accounts" ADD CONSTRAINT "accounts_user_id_fkey" FOREIGN K
 
 -- AddForeignKey
 ALTER TABLE "public"."sessions" ADD CONSTRAINT "sessions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "public"."recipe_ingredient" ADD CONSTRAINT "recipe_ingredient_recipeId_fkey" FOREIGN KEY ("recipeId") REFERENCES "public"."recipes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "public"."recipe_ingredient" ADD CONSTRAINT "recipe_ingredient_ingredientId_fkey" FOREIGN KEY ("ingredientId") REFERENCES "public"."ingredients"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,5 +1,6 @@
 "use client"
 
+import { registerUser } from '@/actions/register';
 import { Button, Form, Input } from '@heroui/react';
 import { useState } from 'react'
 
@@ -23,7 +24,7 @@ const RegistrationForm = ({ onClose }: IProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
 
         e.preventDefault();
-        console.log('Form submitted:', formData )
+        await registerUser(formData);
 
         onClose();
     }; 
