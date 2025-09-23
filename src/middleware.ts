@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
     if (process.env.NODE_ENV === 'production') {
         params = {
             ...params,
-            cookieName: "__Secure-auth.js.session-token"
+            cookieName: "__Secure-authjs.session-token"
         }
     }
 
