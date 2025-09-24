@@ -68,7 +68,7 @@ const RegistrationForm = ({ onClose }: IProps) => {
                 }
                 validate={(value) => {
                     if (!value) return "Пароль обязателен";
-                    if (value !== formData.password) return "Пароль должен быть не менее 6 символов";
+                    if (value.length < 6) return "Пароль должен быть не менее 6 символов";
                     return null;
                 }}
             />
