@@ -91,9 +91,11 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
                 setError(result.error || "ошибка при сохранении рецепта");
             }
 
-            initialRecipe
-            ? notyf?.success('Изменение сохранены !')
-            : notyf?.success('Рецепт добавлен !')
+            if (initialRecipe) {
+                notyf?.success('Изменение сохранены !')
+            } else {
+                notyf?.success('Рецепт добавлен !')
+            }
         });
     };
 
