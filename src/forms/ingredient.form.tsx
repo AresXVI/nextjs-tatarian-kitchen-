@@ -2,6 +2,7 @@
 
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
 import { useIngredientStore } from '@/store/ingredients.store';
+import { getNotyf } from '@/utils/notyf';
 import { Button, Form, Input, Select, SelectItem } from '@heroui/react';
 import { useState, useTransition } from 'react'
 
@@ -21,9 +22,11 @@ const IngredientForm = () => {
   const [ isPending, startTransition ] = useTransition();
 
   const handleSubmit = async ( formData: FormData ) => {
+    const notyf = getNotyf();
 
     startTransition(async () => {
       await addIngredient(formData);
+      notyf?.success("Ингредиент удачно добавлен !")
       const storeError = useIngredientStore.getState().error
   
       if (storeError) {

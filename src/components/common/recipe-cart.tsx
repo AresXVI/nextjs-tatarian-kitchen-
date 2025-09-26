@@ -7,20 +7,30 @@ import Link from 'next/link';
 import { useTransition } from 'react';
 import Image from 'next/image';
 import { UNIT_ABBREVIATION } from '@/constants/select-options';
+import { useAuthStore } from '@/store/auth.store';
+import { getNotyf } from '@/utils/notyf';
+
 
 interface RecipeCardProps {
     recipe: IRecipe;
 }
 
 const RecipeCart = ({ recipe }: RecipeCardProps) => {
-
+    
     const { removeRecipe } = useRecipeStore();
     const [ isPending, startTransition] = useTransition();
-
+    const { isAuth } = useAuthStore();
+    
     const handleDelete = () => {
+        const notyf = getNotyf();
         startTransition(async () => {
             try {
-                await removeRecipe(recipe.id);
+                if (isAuth) {
+                    await removeRecipe(recipe.id);
+                    notyf?.success("Рецепт удален !");
+                } else {
+                    notyf?.error("Недостаточно прав чтобы удалять !");
+                }
             } catch (error) {
                 console.error("Ошибка при удалении рецепта", error);
             }
@@ -78,14 +88,16 @@ const RecipeCart = ({ recipe }: RecipeCardProps) => {
                         Редактировать
                     </Button>
                 </Link>
-                <Button 
-                    color='danger' 
-                    variant='light'
-                    onPress={handleDelete}
-                    isLoading={isPending}
-                >
-                    Удалить
-                </Button>
+                <div>
+                    <Button 
+                        color='danger' 
+                        variant='light'
+                        onPress={handleDelete}
+                        isLoading={isPending}
+                    >
+                        Удалить
+                    </Button>
+                </div>
             </div>
         </Card>
     )

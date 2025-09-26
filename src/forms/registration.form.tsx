@@ -1,6 +1,7 @@
 "use client"
 
 import { registerUser } from '@/actions/register';
+import { getNotyf } from '@/utils/notyf';
 import { Button, Form, Input } from '@heroui/react';
 import { useState } from 'react'
 
@@ -22,9 +23,12 @@ const RegistrationForm = ({ onClose }: IProps) => {
     };
     
     const handleSubmit = async (e: React.FormEvent) => {
+        const notyf = getNotyf();
 
         e.preventDefault();
         await registerUser(formData);
+        notyf?.success("Вы зарегистрированы !")
+
 
         onClose();
     }; 

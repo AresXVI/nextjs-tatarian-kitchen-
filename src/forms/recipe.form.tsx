@@ -6,6 +6,7 @@ import { useIngredientStore } from '@/store/ingredients.store';
 import { useRecipeStore } from '@/store/recipe.store';
 import { IRecipe } from '@/types/recipe';
 import { useRouter } from 'next/navigation';
+import { getNotyf } from '@/utils/notyf';
 
 interface RecipeFormProps {
     initialRecipe?: IRecipe;
@@ -73,6 +74,8 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
     }
 
     const handleSubmit = async (formData: FormData) => {
+        const notyf = getNotyf();
+
         startTransition(async () => {
             setError(null);
 
@@ -87,6 +90,10 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
             } else {
                 setError(result.error || "ошибка при сохранении рецепта");
             }
+
+            initialRecipe
+            ? notyf?.success('Изменение сохранены !')
+            : notyf?.success('Рецепт добавлен !')
         });
     };
 
