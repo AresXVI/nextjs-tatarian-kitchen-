@@ -26,7 +26,7 @@ const IngredientForm = () => {
 
     startTransition(async () => {
       await addIngredient(formData);
-      notyf?.success("Ингредиент удачно добавлен !")
+      notyf?.success("Ингредиент добавлен !")
       const storeError = useIngredientStore.getState().error
   
       if (storeError) {

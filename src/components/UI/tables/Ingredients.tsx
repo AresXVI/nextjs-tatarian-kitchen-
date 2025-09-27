@@ -3,6 +3,7 @@
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
 import { useAuthStore } from '@/store/auth.store';
 import { useIngredientStore } from '@/store/ingredients.store'
+import { getNotyf } from '@/utils/notyf';
 import { 
     Button, 
     Table, 
@@ -17,9 +18,11 @@ const IngredientsTable = () => {
 
     const { ingredients, removeIngredient, isLoading } = useIngredientStore();
     const { isAuth } = useAuthStore();
+    const notyf = getNotyf()
 
     const handleDelete = async (id: string) => {
         await removeIngredient(id);
+        notyf?.success("Ингредиент удален !")
     };
 
     const getCategoryLabel = (value: string) => {
